@@ -1,5 +1,14 @@
 \echo ---------------------------------
 \echo --
+\echo -- tablefunc extension
+\echo --
+\echo ---------------------------------
+\echo
+
+CREATE EXTENSION tablefunc;
+
+\echo ---------------------------------
+\echo --
 \echo -- Adding some users and groups
 \echo --
 \echo ---------------------------------
@@ -31,10 +40,10 @@ VALUES ('admin', 'admins', 'role'),
 INSERT INTO application.groups (group_name, group_description, group_kind)
 VALUES ('local_instances', 'The local instances', 'instance');
 
-INSERT INTO application.instances (agent_address, agent_port, agent_key, hostname)
-VALUES ('temboard-agent-94', 2345, 'key_for_agent_94', 'temboard-agent-94.temboard.local'),
-       ('temboard-agent-95', 2345, 'key_for_agent_95', 'temboard-agent-95.temboard.local'),
-       ('temboard-agent-96', 2345, 'key_for_agent_96', 'temboard-agent-96.temboard.local');
+INSERT INTO application.instances (agent_address, agent_port, agent_key, hostname, pg_port, pg_data, pg_version)
+VALUES ('temboard-agent-94', 2345, 'key_for_agent_94', 'temboard-agent-94.temboard.local', 5432, '/var/lib/postgresql/data', 'PostgreSQL 9.4'),
+       ('temboard-agent-95', 2345, 'key_for_agent_95', 'temboard-agent-95.temboard.local', 5432, '/var/lib/postgresql/data', 'PostgreSQL 9.5'),
+       ('temboard-agent-96', 2345, 'key_for_agent_96', 'temboard-agent-96.temboard.local', 5432, '/var/lib/postgresql/data', 'PostgreSQL 9.6');
 
 INSERT INTO application.instance_groups (agent_address, agent_port, group_name, group_kind)
 VALUES ('temboard-agent-94', 2345, 'local_instances', 'instance'),
