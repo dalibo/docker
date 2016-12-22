@@ -19,7 +19,7 @@ home = /var/lib/temboard-agent/main
 # Note : `localhost` is not a correct value
 hostname = temboard-agent-%%PG_SMALLVER%%.temboard.local
 # Key
-key = "key_for_agent_%%PG_SMALLVER%%"
+key = key_for_agent_%%PG_SMALLVER%%
 
 [postgresql]
 # Unix socket path.
@@ -44,7 +44,7 @@ method = stderr
 # When using file logging method, this is referencing the log file path.
 #destination = /var/log/temboard-agent/temboard-agent.log
 # Log level, can be: DEBUG, INFO, WARNING, ERROR or CRITICAL.
-level = DEBUG
+level = INFO
 
 # Plugins part.
 [dashboard]
