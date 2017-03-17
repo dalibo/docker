@@ -4,50 +4,24 @@ services:
   temboardui-ui:
     image: dalibo/temboardui-ui:latest
     ports:
-     - "8888:8888"
-    networks:
-      main:
-        aliases:
-          - temboardui-ui
+      - "8888:8888"
+    links:
+      - temboardui-pg
 
   temboardui-pg:
     image: dalibo/temboardui-pg:latest
-    ports:
-     - "5432:5432"
-    networks:
-      main:
-        aliases:
-          - temboardui-pg
 
   temboard-agent-94:
     image: dalibo/temboard-agent-94:latest
     ports:
-      #- "2346:2345"
-      - "5433:5432"
-    networks:
-      main:
-        aliases:
-          - temboard-agent-94
+      - 5433:5432
 
   temboard-agent-95:
     image: dalibo/temboard-agent-95:latest
     ports:
-      #- "2347:2345"
-      - "5434:5432"
-    networks:
-      main:
-        aliases:
-          - temboard-agent-95
+      - 5434:5432
 
   temboard-agent-96:
     image: dalibo/temboard-agent-96:latest
     ports:
-      #- "2348:2345"
-      - "5435:5432"
-    networks:
-      main:
-        aliases:
-          - temboard-agent-96
-
-networks:
-  main:
+      - 5435:5432
