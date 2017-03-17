@@ -6,7 +6,7 @@ WORKDIR /usr/local/src
 
 RUN rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
     && yum -y install wget unzip python-pip postgresql-devel python-devel gcc\
-    && pip install psycopg2 sqlalchemy tornado \
+    && pip install psycopg2 sqlalchemy tornado pandas\
     && wget https://github.com/dalibo/temboard/archive/master.zip \
     && unzip master.zip && rm master.zip \
     && cd temboard-master \
