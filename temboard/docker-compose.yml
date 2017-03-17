@@ -1,15 +1,28 @@
 version: '3'
 
 services:
-  temboardui-ui:
-    image: dalibo/temboardui-ui:latest
+  ui:
+    image: dalibo/temboard:latest
+    links:
+      - repository
+    environment:
+      PGHOST: repository
+      PGUSER: temboard
+      PGPASSWORD: temboard
     ports:
       - "8888:8888"
     links:
-      - temboardui-pg
+      - repository
+    networks:
+      default:
+        aliases:
+          - temboardui-ui
 
-  temboardui-pg:
-    image: dalibo/temboardui-pg:latest
+  repository:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: temboard
+      POSTGRES_PASSWORD: temboard
 
   temboard-agent-94:
     image: dalibo/temboard-agent-94:latest

@@ -29,8 +29,7 @@ echo ""
 echo "==========================="
 echo "Minor versions to be built:"
 echo ""
-echo "temboardui-ui:latest"
-echo "temboardui-pg:latest"
+echo "temboard:latest"
 echo "temboard-agent-XY:latest"
 echo "==========================="
 echo ""
@@ -42,22 +41,16 @@ if [ "$cont" != "y" -a "$cont" != "Y" ]; then
     exit 1
 fi
 
-for sub in "ui" "pg"; do
-    echo "############################"
-    echo "##                         #"
-    echo "##     temboardui-$sub     #"
-    echo "##                         #"
-    echo "############################"
-    echo ""
-    echo "Removing old images..."
-
-    BASEDIR="$dir/temboardui/temboardui-$sub"
-    rmi "dalibo/temboardui-$sub:latest"
-
-    echo "Building temboardui-$sub:latest in $BASEDIR..."
-    docker build -q --no-cache -t dalibo/temboardui-$sub:latest $BASEDIR
-
-done
+echo "############################"
+echo "##                         #"
+echo "##        temboard         #"
+echo "##                         #"
+echo "############################"
+echo ""
+echo "Removing old images..."
+make -C temboard clean
+echo "Building temboard:latest in $BASEDIR..."
+make -C temboard build
 
 echo ""
 echo "############################"
