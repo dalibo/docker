@@ -22,9 +22,9 @@ RUN chmod 0755 /usr/local/bin/wait-for-it
 
 COPY fixture.sql /var/lib/temboard/
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT ["docker-entrypoint.sh"]
+ADD https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64 /usr/local/bin/gosu
+RUN chmod 0755 /usr/local/bin/gosu
+ENTRYPOINT ["gosu", "temboard", "docker-entrypoint.sh"]
 CMD ["temboard --config temboard.conf"]
 
 EXPOSE 8888
-
-USER temboard
