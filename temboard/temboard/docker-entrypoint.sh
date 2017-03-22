@@ -32,7 +32,7 @@ method = stderr
 level = INFO
 EOF
 
-wait-for-it ${PGHOST-localhost}:${PGPORT-5432}
+wait-for-it ${PGHOST}:${PGPORT}
 
 cat > ~/.pgpass <<EOF
 *:*:*:${PGUSER}:${PGPASSWORD}
