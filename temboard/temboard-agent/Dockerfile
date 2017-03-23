@@ -13,8 +13,11 @@ RUN useradd --home-dir /var/lib/temboard --create-home --system temboard
 VOLUME /var/lib/temboard
 WORKDIR /var/lib/temboard
 
-ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/local/bin/wait-for-it
-RUN chmod 0755 /usr/local/bin/wait-for-it
+RUN python -c 'import urllib; urllib.urlretrieve("https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64", "/usr/local/bin/gosu")' \
+    && chmod 0755 /usr/local/bin/gosu \
+    && python -c 'import urllib; urllib.urlretrieve("https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh", "/usr/local/bin/wait-for-it")' \
+    && chmod 0755 /usr/local/bin/wait-for-it \
+    ;
 
 ENV TEMBOARD_HOSTNAME ""
 ENV TEMBOARD_KEY ""
@@ -28,17 +31,14 @@ ENV TEMBOARD_UI_URL ""
 ENV TEMBOARD_UI_CREDENTIALS "admin:admin"
 ENV TEMBOARD_GROUPS local_instances
 
-ADD https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64 /usr/local/bin/gosu
-RUN chmod 0755 /usr/local/bin/gosu
-
 COPY entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["gosu", "temboard", "docker-entrypoint.sh"]
 CMD ["temboard-agent --config temboard-agent.conf"]
 
-EXPOSE 2345
-
-ADD https://github.com/dalibo/temboard/archive/master.zip /usr/local/src/temboard.zip
-RUN python -m zipfile -e /usr/local/src/temboard.zip /usr/local/src/ \
+RUN python -c 'import urllib; urllib.urlretrieve("https://github.com/dalibo/temboard/archive/master.zip", "temboard.zip")' \
+    && python -m zipfile -e temboard.zip /usr/local/src/ \
     && pip install --no-cache-dir -e /usr/local/src/temboard-master/temboard-agent \
-    && rm -f /usr/local/src/temboard.zip \
+    && rm -f temboard.zip \
     ;
+
+EXPOSE 2345
