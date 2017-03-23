@@ -1,4 +1,10 @@
-all:
-	$(MAKE) -C temboard-agent
-images: all
-	./build_all.sh
+help:
+	@echo
+	@echo Refresh temboard images with
+	@echo
+	@echo "   $$ make clean build push"
+	@echo
+
+%:
+	$(MAKE) -C temboard $@
+	$(MAKE) -C temboard-agent $@
