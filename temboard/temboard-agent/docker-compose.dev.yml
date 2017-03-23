@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  agent96:
+    volumes:
+      - ./temboard-agent/entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
+    entrypoint: /bin/bash
+    command: -c "tail -f /dev/null"
