@@ -1,0 +1,6 @@
+version: '3'
+
+services:
+  ui:
+    volumes:
+      - ./temboard/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
