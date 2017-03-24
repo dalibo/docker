@@ -13,6 +13,7 @@ PGCONTAINER=${links[@]%%*:*}
 COMPOSE_SERVICE=$(docker inspect --format "{{ index .Config.Labels \"com.docker.compose.service\"}}" $HOSTNAME)
 
 echo "Managing PostgreSQL container $PGCONTAINER." >&2
+
 echo "Generating temboard-agent.conf" >&2
 
 cat > temboard-agent.conf <<EOF
@@ -41,7 +42,7 @@ password = ${PGPASSWORD}
 instance = ${PGINSTANCE-main}
 
 [supervision]
-collector_url = ${TEMBOARD_UI_URL%/}/supervision/collector
+collector_url = ${TEMBOARD_UI_URL%/}/monitoring/collector
 ssl_ca_cert_file = ${TEMBOARD_SSL_CA}
 
 [administration]

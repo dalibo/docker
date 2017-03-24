@@ -54,7 +54,7 @@ SELECT agent_address, agent_port, plug
         UNION ALL
         SELECT 'dashboard'
         UNION ALL
-        SELECT 'supervision'
+        SELECT 'monitoring'
         UNION ALL
         SELECT 'settings'
     ) s(plug);
