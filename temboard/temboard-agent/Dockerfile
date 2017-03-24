@@ -27,7 +27,8 @@ ENV TEMBOARD_SSL_CA /usr/local/share/temboard-agent/temboard-agent_ca_certs_CHAN
 ENV TEMBOARD_SSL_CERT /usr/local/share/temboard-agent/temboard-agent_CHANGEME.pem
 ENV TEMBOARD_SSL_KEY /usr/local/share/temboard-agent/temboard-agent_CHANGEME.key
 ENV TEMBOARD_UI_URL ""
-ENV TEMBOARD_UI_CREDENTIALS "admin:admin"
+ENV TEMBOARD_UI_USER "admin"
+ENV TEMBOARD_UI_PASSWORD "admin"
 ENV TEMBOARD_GROUPS local_instances
 
 COPY entrypoint.sh /usr/local/bin/docker-entrypoint.sh

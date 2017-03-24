@@ -57,26 +57,22 @@ for entry in ${TEMBOARD_USERS} ; do
     temboard-agent-password $entry >> users
 done
 
-hostportpath=${TEMBOARD_UI_URL#*://}
-hostport=${hostportpath%%/*}
-wait-for-it ${hostport}
 wait-for-it ${PGHOST}:${PGPORT}
 
 register() {
+    set -x
+    hostportpath=${TEMBOARD_UI_URL#*://}
+    hostport=${hostportpath%%/*}
     wait-for-it localhost:2345
-    python /usr/local/src/temboard-agent-master/temboard-agent-register \
-           --host $COMPOSE_SERVICE \
-           --port 2345 \
+    wait-for-it ${hostport} -t 60
+
+    python /usr/local/src/temboard-master/temboard-agent/temboard-agent-register \
            --config temboard-agent.conf \
-           --groups ${TEMBOARD_GROUPS} \
-           ${TEMBOARD_UI_URL} <<EOF
-${TEMBOARD_UI_CREDENTIALS%:*}
-${TEMBOARD_UI_CREDENTIALS#*:}
-EOF
+           --host $COMPOSE_SERVICE --port 2345 --groups ${TEMBOARD_GROUPS} \
+           ${TEMBOARD_UI_URL%/}
 }
 
-# Requires https://github.com/dalibo/temboard/pull/88
-# register &
+register &
 
 set -x
 exec ${*-temboard-agent --config temboard-agent.conf}
