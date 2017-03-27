@@ -24,9 +24,9 @@ ENV TEMBOARD_KEY ""
 ENV TEMBOARD_USERS alice:alice bob:bob
 ENV TEMBOARD_LOGGING_LEVEL INFO
 ENV TEMBOARD_PLUGINS '["activity", "administration", "dashboard", "settings", "supervision"]'
-ENV TEMBOARD_SSL_CA /usr/local/src/temboard-master/temboard-agent/share/temboard-agent_ca_certs_CHANGEME.pem
-ENV TEMBOARD_SSL_CERT /usr/local/src/temboard-master/temboard-agent/share/temboard-agent_CHANGEME.pem
-ENV TEMBOARD_SSL_KEY /usr/local/src/temboard-master/temboard-agent/share/temboard-agent_CHANGEME.key
+ENV TEMBOARD_SSL_CA /usr/local/share/temboard-agent/temboard-agent_ca_certs_CHANGEME.pem
+ENV TEMBOARD_SSL_CERT /usr/local/share/temboard-agent/temboard-agent_CHANGEME.pem
+ENV TEMBOARD_SSL_KEY /usr/local/share/temboard-agent/temboard-agent_CHANGEME.key
 ENV TEMBOARD_UI_URL ""
 ENV TEMBOARD_UI_CREDENTIALS "admin:admin"
 ENV TEMBOARD_GROUPS local_instances
@@ -35,10 +35,6 @@ COPY entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["gosu", "temboard", "docker-entrypoint.sh"]
 CMD ["temboard-agent --config temboard-agent.conf"]
 
-RUN python -c 'import urllib; urllib.urlretrieve("https://github.com/dalibo/temboard/archive/master.zip", "temboard.zip")' \
-    && python -m zipfile -e temboard.zip /usr/local/src/ \
-    && pip install --no-cache-dir -e /usr/local/src/temboard-master/temboard-agent \
-    && rm -f temboard.zip \
-    ;
+RUN pip install --no-cache-dir https://github.com/dalibo/temboard-agent/archive/master.zip
 
 EXPOSE 2345
