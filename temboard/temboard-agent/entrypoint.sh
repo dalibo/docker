@@ -63,7 +63,7 @@ wait-for-it ${PGHOST}:${PGPORT}
 
 register() {
     wait-for-it localhost:2345
-    python /usr/local/src/temboard-master/temboard-agent/temboard-agent-register \
+    python /usr/local/src/temboard-agent-master/temboard-agent-register \
            --host $COMPOSE_SERVICE \
            --port 2345 \
            --config temboard-agent.conf \
