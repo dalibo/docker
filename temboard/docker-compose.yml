@@ -47,16 +47,12 @@ services:
       - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
     links:
-      - instance96:temboard-agent-96.temboard.local
+      - instance96:instance96.fqdn
       - ui
     environment:
-      TEMBOARD_HOSTNAME: temboard-agent-96.temboard.local
+      TEMBOARD_HOSTNAME: instance96.fqdn
       TEMBOARD_KEY: key_for_agent_96
       TEMBOARD_UI_URL: https://ui:8888/
-    networks:
-      default:
-        aliases:
-          - temboard-agent-96
 
   instance95:
     image: postgres:9.5
@@ -74,16 +70,12 @@ services:
       - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
     links:
-      - instance95:temboard-agent-95.temboard.local
+      - instance95:instance95.fqdn
       - ui
     environment:
-      TEMBOARD_HOSTNAME: temboard-agent-95.temboard.local
+      TEMBOARD_HOSTNAME: instance95.fqdn
       TEMBOARD_KEY: key_for_agent_95
       TEMBOARD_UI_URL: https://ui:8888/
-    networks:
-      default:
-        aliases:
-          - temboard-agent-95
 
   instance94:
     image: postgres:9.4
@@ -101,13 +93,9 @@ services:
       - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
     links:
-      - instance94:temboard-agent-94.temboard.local
+      - instance94:instance94.fqdn
       - ui
     environment:
-      TEMBOARD_HOSTNAME: temboard-agent-94.temboard.local
+      TEMBOARD_HOSTNAME: instance94.fqdn
       TEMBOARD_KEY: key_for_agent_94
       TEMBOARD_UI_URL: https://ui:8888/
-    networks:
-      default:
-        aliases:
-          - temboard-agent-94

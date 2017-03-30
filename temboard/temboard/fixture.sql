@@ -20,41 +20,9 @@ VALUES ('admin', 'admins', 'role'),
        ('alice', 'users', 'role'),
        ('bob',   'users', 'role');
 
-\echo
-\echo ---------------------------------
-\echo --
-\echo -- Adding some instances
-\echo --
-\echo ---------------------------------
-\echo
-
 INSERT INTO application.groups (group_name, group_description, group_kind)
 VALUES ('local_instances', 'The local instances', 'instance');
-
--- This has to be sync with docker-compose.yml
-INSERT INTO application.instances (agent_address, agent_port, agent_key, hostname, pg_port, pg_data, pg_version)
-VALUES ('temboard-agent-94', 2345, 'key_for_agent_94', 'temboard-agent-94.temboard.local', 5432, '/var/lib/postgresql/data', 'PostgreSQL 9.4'),
-       ('temboard-agent-95', 2345, 'key_for_agent_95', 'temboard-agent-95.temboard.local', 5432, '/var/lib/postgresql/data', 'PostgreSQL 9.5'),
-       ('temboard-agent-96', 2345, 'key_for_agent_96', 'temboard-agent-96.temboard.local', 5432, '/var/lib/postgresql/data', 'PostgreSQL 9.6');
-
-INSERT INTO application.instance_groups (agent_address, agent_port, group_name, group_kind)
-VALUES ('temboard-agent-94', 2345, 'local_instances', 'instance'),
-       ('temboard-agent-95', 2345, 'local_instances', 'instance'),
-       ('temboard-agent-96', 2345, 'local_instances', 'instance');
 
 INSERT INTO application.access_role_instance(role_group_name, role_group_kind, instance_group_name, instance_group_kind)
 VALUES ('admins', 'role', 'local_instances', 'instance'),
        ('users',  'role', 'local_instances', 'instance');
-
-INSERT INTO application.plugins (agent_address, agent_port, plugin_name)
-SELECT agent_address, agent_port, plug
-    FROM application.instances
-    CROSS JOIN (
-        SELECT 'activity'
-        UNION ALL
-        SELECT 'dashboard'
-        UNION ALL
-        SELECT 'monitoring'
-        UNION ALL
-        SELECT 'settings'
-    ) s(plug);
