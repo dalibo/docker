@@ -42,7 +42,7 @@ chmod 0600 ~/.pgpass
 psql="psql -aw"
 if ! psql -c 'SELECT 1 FROM application.instances LIMIT 1;' ; then
     $psql -f /usr/local/share/temboard/application.sql
-    $psql -f /usr/local/share/temboard/supervision.sql
+    $psql -f /usr/local/share/temboard/monitoring.sql
     $psql -f /var/lib/temboard/fixture.sql
 fi
 
