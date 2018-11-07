@@ -12,11 +12,9 @@ echo "#                    #"
 echo "######################"
 
 
-# get a X.Y.Z information from the latest release name, which should be
-# "version X.Y.Z". The releanse name can be easily edited, so this should be
-# more reliable than using the release tags.
-ARCHIVIST="$(wget -O- https://api.github.com/repos/powa-team/powa-archivist/releases/latest | jq -r '.name' | sed 's/version //')"
-WEB="$(wget -O- https://api.github.com/repos/powa-team/powa-web/releases/latest | jq -r '.name' | sed 's/version //')"
+# get a X.Y.Z information from the latest tag name
+ARCHIVIST="$(wget -O- https://api.github.com/repos/powa-team/powa-archivist/releases/latest | jq -r '.tag_name' | sed 's/^.*\([0-9]\+\).*\([0-9]\+\).*\([0-9]\+\).*$/\1.\2.\3/g')"
+WEB="$(wget -O- https://api.github.com/repos/powa-team/powa-web/releases/latest | jq -r '.tag_name' |  sed 's/^.*\([0-9]\+\).*\([0-9]\+\).*\([0-9]\+\).*$/\1.\2.\3/g')"
 
 function rmi {
     image="$1"
@@ -55,7 +53,7 @@ echo "############################"
 echo ""
 
 BASEDIR="$dir/powa-archivist"
-for version in $(ls "$BASEDIR" | egrep '[0-9]+\.[0-9]+'); do
+for version in $(ls "$BASEDIR" | egrep '[0-9]+(\.[0-9]+)?'); do
     echo "Version $version"
     echo "================"
     echo ""

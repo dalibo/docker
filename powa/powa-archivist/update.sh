@@ -13,7 +13,7 @@ echo "# Updating Dockerfiles #"
 echo "# for powa-archivist   #"
 echo "#                      #"
 echo "########################"
-for version in $(ls "$dir"| egrep '[0-9]+\.[0-9]+'); do
+for version in $(ls "$dir"| egrep '[0-9]+(\.[0-9]+)?'); do
     echo "Setting up powa-archivist-$version..."
     echo ""
 
