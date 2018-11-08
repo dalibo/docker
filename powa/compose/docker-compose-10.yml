@@ -1,9 +1,9 @@
 powa-archivist:
-  image: powa-team/powa-archivist-10:latest
+  image: dalibo/powa-archivist-10:latest
   ports:
    - "5432:5432"
 powa-web:
-  image: powa-team/powa-web:latest
+  image: dalibo/powa-web:latest
   ports:
    - "8888:8888"
   links:

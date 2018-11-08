@@ -62,13 +62,13 @@ for version in $(ls "$BASEDIR" | egrep '[0-9]+(\.[0-9]+)?'); do
     v=$(echo "$version" | sed 's/\.//')
     CURDIR="$BASEDIR/$version"
 
-    rmi "powa-team/powa-archivist-$version:latest"
-    rmi "powa-team/powa-archivist-$version:$ARCHIVIST"
+    rmi "dalibo/powa-archivist-$version:latest"
+    rmi "dalibo/powa-archivist-$version:$ARCHIVIST"
 
     echo "Building powa-archivist tag $ARCHIVIST..."
-    docker build -q --no-cache -t powa-team/powa-archivist-$v:$ARCHIVIST $CURDIR
+    docker build -q --no-cache -t dalibo/powa-archivist-$v:$ARCHIVIST $CURDIR
     echo "Updating powa-archivist:latest..."
-    docker build -q -t powa-team/powa-archivist-$v:latest $CURDIR
+    docker build -q -t dalibo/powa-archivist-$v:latest $CURDIR
 done
 
 echo ""
@@ -81,13 +81,13 @@ echo ""
 echo "Removing old images..."
 
 BASEDIR="$dir/powa-web"
-rmi "powa-team/powa-web:latest"
-rmi "powa-team/powa-web:$WEB"
+rmi "dalibo/powa-web:latest"
+rmi "dalibo/powa-web:$WEB"
 
 echo "Building powa-web tag $WEB..."
-docker build -q --no-cache -t powa-team/powa-web:$WEB $BASEDIR
+docker build -q --no-cache -t dalibo/powa-web:$WEB $BASEDIR
 echo "Updating powa-web:latest..."
-docker build -q -t powa-team/powa-web:latest $BASEDIR
+docker build -q -t dalibo/powa-web:latest $BASEDIR
 
 echo ""
 echo "Done!"
