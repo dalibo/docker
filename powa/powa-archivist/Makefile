@@ -1,2 +1,0 @@
-all:
-	./update.sh
